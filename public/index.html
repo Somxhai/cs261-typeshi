@@ -13,17 +13,35 @@
         <a href="#">English</a> &gt; <a href="#">Thai</a> &gt; <a href="#">Contact us</a>
     </div>
     <div class="container">
-        <img src="/api/placeholder/100/100" alt="University Logo" class="logo">
+        <img src="./img/Emblem_of_Thammasat_University.svg.png" alt="University Logo" class="logo">
         <h1>REQUEST FORM</h1>
         <form id="login-form" method="post">
             <div class="form-group">
-                <input name="username" type="text" placeholder="Username" required>
+                <input name="username" type="text" placeholder="Username">
             </div>
             <div class="form-group">
-                <input name="password" type="password" placeholder="Password" required>
+                <input name="password" type="password" placeholder="Password">
             </div>
+
+            <!-- <div class="form-group user-type-container"> -->
+            <!--     <select name="user_type"> -->
+            <!--         <option selected disabled hidden>ประเภทของผู้ใช้</option> -->
+            <!--         <option value="student">นักศึกษา</option> -->
+            <!--         <option value="professor">อาจารย์</option> -->
+            <!--     </select> -->
+            <!-- </div> -->
+
             <button name="login-button" type="submit" class="submit-button">LOGIN</button>
         </form>
+        <p style="color: red; margin:0.2rem;" id="error_message"></p>
+        <div id="resultModal" class="modal">
+            <div class="modal-content">
+                <span id="closeModal" class="close">&times;</span>
+                <h3>ผลลัพท์</h3>
+                <p id="result_name"></p>
+                <button type="button">ปิด</button>
+            </div>
+        </div>
     </div>
 </body>
 <script src="./js/form.js"></script>
