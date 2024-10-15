@@ -3,35 +3,94 @@
 const loginForm = document.getElementById("login-form")
 function setFocusOnEnter() {
 
-  if (loginForm.focus()) {
-    for (const i of formControl) {
-      if (i.value === '') {
-        i.nextElementSibling.focus();
-        break;
-      }
+    if (loginForm.focus()) {
+        for (const i of formControl) {
+            if (i.value === '') {
+                i.nextElementSibling.focus();
+                break;
+            }
+        }
     }
-  }
 }
 
-async function onLogin() {
-  let formData = new FormData(loginForm);
-  let username = formData.get("username")
-  let password = formData.get("password")
-  console.log(username, password)
-  let url = ""
-  // await fetch(url, {
-  //   method: "POST",
-  //   body: JSON.stringify({
-  //     username,
-  //     password
-  //   })
-  // })
+const resultElement = document.getElementById("result_name")
+const errorElement = document.getElementById("error_message")
+
+const clearText = () => {
+    resultElement.innerText = ""
+    errorElement.innerText = ""
+
+}
+
+async function onLogin(event) {
+    event.preventDefault();
+
+    clearText()
+    let formData = new FormData(loginForm);
+    let username = formData.get("username");
+    let password = formData.get("password");
+
+    // let isStudent = formData.get("user_type");
+    // if (isStudent === null) {
+    //     errorElement.innerText = "กรุณาเลือกประเภทผู้ใช้งาน";
+    //     return;
+    // }
+    if (!username || !password) {
+        errorElement.innerText = "กรุณากรอกชื่อผู้ใช้และรหัสผ่าน";
+        return
+    }
+
+
+    try {
+        let response = await fetch("http://localhost:3000/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ username, password })
+        });
+
+        if (response.status === 400) {
+            errorElement.innerText = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
+            return;
+        }
+
+        if (!response.ok) {
+            errorElement.innerText = "เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์";
+            return;
+        }
+
+        const result = await response.json();
+
+        console.log(result)
+
+        resultElement.innerText += `
+            ชื่อไทย: ${result['displayname_th']}
+            ชื่ออังกฤษ: ${result['displayname_en']}
+            คณะ: ${result['faculty']}
+            สาขา: ${result['department']}
+            ประเภท: ${result['type'] === "student" ? "นักศึกษา" : "อาจารย์"}
+        `
+        resultModal.style.display = "block";
+    } catch (error) {
+        errorElement.innerText = "เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์";
+    }
 }
 
 loginForm.addEventListener('submit', onLogin);
 
 loginForm.addEventListener('keydown', (key) => {
-  if (key.code !== 'Enter') return;
-  setFocusOnEnter()
+    if (key.code !== 'Enter') return;
+    setFocusOnEnter()
 })
 
+closeModal.addEventListener('click', () => {
+    resultModal.style.display = "none";
+});
+
+// Close the modal when clicking outside of the modal content
+window.addEventListener('click', (event) => {
+    if (event.target === resultModal) {
+        resultModal.style.display = "none";
+    }
+});
