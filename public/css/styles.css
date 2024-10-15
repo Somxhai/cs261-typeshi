@@ -1,7 +1,77 @@
 * {
     box-sizing: border-box;
+    /* Set box-sizing to border-box for all elements */
     margin: 0;
+    /* Remove default margin */
     padding: 0;
+    /* Remove default padding */
+}
+
+html,
+body {
+    height: 100%;
+    /* Make sure the body takes up the full height */
+    font-family: sans-serif;
+    /* Set a default font family */
+    line-height: 1.5;
+    /* Set a default line height */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    /* Remove default margin for headers */
+}
+
+p {
+    margin: 0;
+    /* Remove default margin for paragraphs */
+}
+
+ul,
+ol {
+    list-style: none;
+    /* Remove default list styles */
+    padding: 0;
+    /* Remove default padding */
+}
+
+a {
+    text-decoration: none;
+    /* Remove underline from links */
+    color: inherit;
+    /* Inherit color from parent element */
+}
+
+button {
+    background: none;
+    /* Remove default background */
+    border: none;
+    /* Remove default border */
+    font: inherit;
+    /* Inherit font styles */
+    cursor: pointer;
+    /* Change cursor to pointer */
+}
+
+img {
+    max-width: 100%;
+    /* Ensure images are responsive */
+    height: auto;
+    /* Maintain aspect ratio */
+}
+
+input,
+textarea,
+select {
+    font-family: inherit;
+    /* Inherit font styles */
+    font-size: inherit;
+    /* Inherit font size */
 }
 
 body {
@@ -33,6 +103,10 @@ h1 {
     margin-bottom: 2rem;
 }
 
+h4[id="result_name"] {
+    text-align: left;
+}
+
 .login-form {
     display: flex;
     justify-content: center;
@@ -42,6 +116,23 @@ h1 {
 .form-group {
     margin-bottom: 1rem;
     display: flex;
+}
+
+.user-type-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.user-type-container select {
+    padding: 0.5rem;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: flex;
+    background: white;
+
 }
 
 input {
@@ -65,4 +156,70 @@ input {
     position: absolute;
     top: 1rem;
     right: 1rem;
+}
+
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1000;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    /* Could be more or less, depending on screen size */
+    border-radius: 8px;
+    /* Rounded corners */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+div[id="resultModal"] {
+    h3 {
+        text-align: center;
+        color: #333;
+
+    }
+
+    p {
+        text-align: left;
+    }
+
+    button {
+        width: 100%;
+        background-color: black;
+        color: white;
+        padding: 0.5rem;
+        border-radius: 8px;
+        margin: 0.5rem 0;
+    }
 }
