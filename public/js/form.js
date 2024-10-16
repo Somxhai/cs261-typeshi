@@ -1,5 +1,3 @@
-
-
 const loginForm = document.getElementById("login-form")
 function setFocusOnEnter() {
 
@@ -19,7 +17,6 @@ const errorElement = document.getElementById("error_message")
 const clearText = () => {
     resultElement.innerText = ""
     errorElement.innerText = ""
-
 }
 
 async function onLogin(event) {
@@ -62,7 +59,6 @@ async function onLogin(event) {
 
         const result = await response.json();
 
-        console.log(result)
 
         resultElement.innerText += `
             ชื่อไทย: ${result['displayname_th']}
@@ -84,13 +80,18 @@ loginForm.addEventListener('keydown', (key) => {
     setFocusOnEnter()
 })
 
-closeModal.addEventListener('click', () => {
+function close() {
     resultModal.style.display = "none";
+}
+
+closeModal.addEventListener('click', () => {
+    close()
 });
 
+document.getElementById("modal-close").addEventListener('click', close);
 // Close the modal when clicking outside of the modal content
 window.addEventListener('click', (event) => {
     if (event.target === resultModal) {
-        resultModal.style.display = "none";
+        close()
     }
 });
