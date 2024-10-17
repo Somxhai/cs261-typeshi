@@ -1,16 +1,4 @@
 const loginForm = document.getElementById("login-form")
-function setFocusOnEnter() {
-
-    if (loginForm.focus()) {
-        for (const i of formControl) {
-            if (i.value === '') {
-                i.nextElementSibling.focus();
-                break;
-            }
-        }
-    }
-}
-
 const resultElement = document.getElementById("result_name")
 const errorElement = document.getElementById("error_message")
 
@@ -27,16 +15,10 @@ async function onLogin(event) {
     let username = formData.get("username");
     let password = formData.get("password");
 
-    // let isStudent = formData.get("user_type");
-    // if (isStudent === null) {
-    //     errorElement.innerText = "กรุณาเลือกประเภทผู้ใช้งาน";
-    //     return;
-    // }
     if (!username || !password) {
         errorElement.innerText = "กรุณากรอกชื่อผู้ใช้และรหัสผ่าน";
         return
     }
-
 
     try {
         let response = await fetch("http://localhost:3000/login", {
@@ -58,7 +40,6 @@ async function onLogin(event) {
         }
 
         const result = await response.json();
-
 
         resultElement.innerText += `
             ชื่อไทย: ${result['displayname_th']}
@@ -89,7 +70,7 @@ closeModal.addEventListener('click', () => {
 });
 
 document.getElementById("modal-close").addEventListener('click', close);
-// Close the modal when clicking outside of the modal content
+
 window.addEventListener('click', (event) => {
     if (event.target === resultModal) {
         close()
