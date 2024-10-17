@@ -19,10 +19,13 @@ RUN npm install
 # Copy the rest of the application code to the working directory
 COPY . .
 
+# Step 4: Copy .env file to container
+COPY .env .
+
 # Expose the port that your Node.js app runs on
 EXPOSE 3000
 
-# Step 4: Command to start the Node.js application
+# Step 5: Command to start the Node.js application
 CMD ["node", "server.js"]
 # Start Node.js server
 # CMD ["sh", "-c", "node /app/server.js"]
