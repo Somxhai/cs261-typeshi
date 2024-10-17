@@ -25,6 +25,13 @@ app.get('/', (_, res) => {
 });
 
 app.post('/login', async (req, res) => {
+
+    if (process.env.TU_API_KEY === undefined) {
+        console.error("Please set the TU_API_KEY environment variable");
+        res.status(500).json({ message: "Internal Server Error" })
+        return;
+    }
+
     try {
 
         const { username, password } = req.body;
